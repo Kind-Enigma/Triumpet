@@ -54,8 +54,9 @@ angular.module('tp.map',[])
 
 
 
-    var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-                [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+    // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
+    //             [Number($('.user').attr('cx'))*1/10, Number($('.user').attr('cy'))*1/10],
+    //             [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
 
     var drawPath = function(data){
       d3.select("path").remove()
@@ -89,6 +90,7 @@ angular.module('tp.map',[])
 
 
 
+
     //\\===========================//\\
 
     // Defines the drag behavior.
@@ -98,8 +100,19 @@ angular.module('tp.map',[])
     // Used in dragMove, below.
     function updateUserLoc(userLoc){
       scope.userLoc = userLoc;
-      data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-              [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+
+      // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
+      //         [300,400],
+      //         [199,233],
+      //         [266,99],
+      //         [211,333],
+      //         [222,555],
+      //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+
+      if (Math.abs(userLoc.x - data[1][0]) < 30 && Math.abs(userLoc.y - data[1][1]) < 30){
+        data.splice(1,1);
+      }
+      data[0] = [Number($('.user').attr('cx')), Number($('.user').attr('cy'))]
       drawPath(data);
     };
 
@@ -107,6 +120,8 @@ angular.module('tp.map',[])
     function dragMove(d) {
       var x = d3.event.x;
       var y = d3.event.y;
+
+
       d3.select(this).attr('cx',x).attr('cy', y);
       updateUserLoc({x:x, y:y});
 
@@ -122,6 +137,16 @@ angular.module('tp.map',[])
 
       // lineFunction(data);
     };
+
+
+    data = [];
+    // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
+    //         [300,400],
+    //         [199,233],
+    //         [266,99],
+    //         [211,333],
+    //         [222,555],
+    //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
 
     // Adds user circle to the map. This is blue in the demo.
     function addUserToMap(event, scope, element){
@@ -147,6 +172,15 @@ angular.module('tp.map',[])
         .attr('class', 'user')
         .attr('fill','rgb(0, 119, 255)')
         .call(drag);
+
+      data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
+              [300,400],
+              [199,233],
+              [266,99],
+              [211,333],
+              [222,555],
+              [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+
 
       updateUserLoc(p);
     };
