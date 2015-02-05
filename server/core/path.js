@@ -18,3 +18,4 @@ var distance = function(path) {
   },[0,[]]);
 
 };
+
