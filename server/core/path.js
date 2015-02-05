@@ -2,9 +2,6 @@
 
 
 
-
-
-
 var distance = function(path) {
 
   return path.reduce(function(previous, item){
