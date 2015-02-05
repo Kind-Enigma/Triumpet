@@ -41,3 +41,22 @@ Grid.prototype.createArea = function(x1, y1, x2, y2, value) {
     }
   }
 };
+
+
+// -------------------------------
+// placeItem
+// -------------------------------
+// Sets an area starting at x,y who is width wide
+// and height tall (width, height) to value.
+// Default is 1 which is barrier to walking
+
+Grid.prototype.placeItem = function(x, y, width, height, value){
+  value = (value == null) ? 1 : value;
+
+  for (j = Math.floor(y / this.gridSize); j < Math.floor(y / this.gridSize) + Math.floor(height / this.gridSize); j++) {
+    for (i = Math.floor(x / this.gridSize); i < Math.floor(x / this.gridSize) + Math.floor(width / this.gridSize); i++) {
+      this.grid[i][j] = value;
+    }
+  }
+
+};
