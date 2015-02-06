@@ -9,6 +9,8 @@ angular.module('tp.map',[])
   $scope.items;
   $scope.selectedItem = '';
   $scope.floorPlan;
+  $scope.itemList = Item.storage
+  // $scope.itemLocData = Item.coordinatesStorage
 
   //Initializes the map by fetching retailer information.
   if ($stateParams.retailer) {
@@ -31,7 +33,7 @@ angular.module('tp.map',[])
 })
 
 // Used to render and update the svg map.
-.directive('tpMap', function($window){
+.directive('tpMap', function($window, Item){
 
   // Defines linker function to be referenced in the directives return object.
   var linker = function(scope, element, attrs) {
@@ -142,6 +144,8 @@ angular.module('tp.map',[])
       //         [222,555],
       //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
 
+
+
       if (Math.abs(userLoc.x - data[1][0]) < 30 && Math.abs(userLoc.y - data[1][1]) < 30){
         data.splice(1,1);
       }
@@ -207,27 +211,29 @@ angular.module('tp.map',[])
         .attr('fill','rgb(0, 119, 255)')
         .call(drag);
 
-      data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-              [500,300],
-              [490,290],
-              [480,280],
-              [470,270],
-              [460,260],
-              [450,250],
-              [440,240],
-              [430,230],
-              [420,220],
-              [410,210],
-              [400,200],
-              [280,180],
-              [260,160],
-              [240,140],
-              [220,120],
-              [299,133],
-              [266,99],
-              [211,333],
-              [222,555],
-              [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+      data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))]].concat(Item.coordinatesStorage);
+      console.log(data)
+      //         // [500,300],
+      //         // [490,290],
+      //         // [480,280],
+      //         // [470,270],
+      //         // [460,260],
+      //         // [450,250],
+      //         // [440,240],
+      //         // [430,230],
+      //         // [420,220],
+      //         // [410,210],
+      //         // [400,200],
+      //         // [280,180],
+      //         // [260,160],
+      //         // [240,140],
+      //         // [220,120],
+      //         // [299,133],
+      //         // [266,99],
+      //         // [211,333],
+      //         // [222,555],
+      //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+
 
 
       updateUserLoc(p);
