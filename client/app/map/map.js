@@ -57,9 +57,14 @@ angular.module('tp.map',[])
     // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
     //             [Number($('.user').attr('cx'))*1/10, Number($('.user').attr('cy'))*1/10],
     //             [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
+    var removePath = function(){
+      d3.select("path").remove()
+    };
+
+
 
     var drawPath = function(data){
-      d3.select("path").remove()
+      removePath();
       var lineFunction = d3.svg.line()
           .x(function(d) { return d[0] })
           .y(function(d) { return d[1] })
@@ -71,8 +76,8 @@ angular.module('tp.map',[])
                       .attr("stroke-width", 5)
                       .attr("fill", "none")
                       .transition()
-                      // .duration(1000)
-                      // .attrTween('d', pathTween);
+                      // .duration(2000)
+                      .attrTween('d', pathTween);
 
       function pathTween() {
         var interpolate = d3.scale.quantile()
@@ -151,6 +156,7 @@ angular.module('tp.map',[])
 
 
       d3.select(this).attr('cx',x).attr('cy', y);
+
       updateUserLoc({x:x, y:y});
 
       // var data = [{"x": x + 20, "y": y + 20}, {"x":20, "y":40}]
