@@ -32,6 +32,9 @@ module.exports = function(app, express) {
   app.delete('/api/retailers/:username',retailers.delete);
 
   // Items API
+  app.get('/api/test', function(request, response){
+    response.end("Test fired!");
+  });
   app.post('/api/items/:retailer', items.create);
   app.get('/api/items/:retailer', items.read);
   app.put('/api/items/:retailer/:item', items.update);
