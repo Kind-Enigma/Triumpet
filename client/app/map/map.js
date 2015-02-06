@@ -45,20 +45,7 @@ angular.module('tp.map',[])
         .attr('height', 20 * scope.scale + 'px') // [Warning]: 20 is a hardcoded height for this particular map, this is has to be changed to accomodate different maps
         .on('click', addUserToMap); // [Note]: Uses d3 to handle this event, not angular
     //===========================\\
-    // var objectifyData = function(array){
-    //   var data = [];
-    //   for (var i  = 0; i < array.length; i++){
-    //     data.push({"x": array[i][0], "y": array[i][1]})
-    //   }
 
-    //   return data;
-    // };
-
-
-
-    // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-    //             [Number($('.user').attr('cx'))*1/10, Number($('.user').attr('cy'))*1/10],
-    //             [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
     var removePath = function(){
       d3.select("path").remove()
     };
@@ -91,22 +78,6 @@ angular.module('tp.map',[])
       }
     }
 
-    // var path = svg.append('path')
-    //     .attr('class', 'line')
-    //     .attr('d', line(data[0]))
-    //     .transition()
-    //     .duration(1000)
-    //     .attrTween('d', pathTween);
-
-    // function pathTween() {
-    //     var interpolate = d3.scale.quantile()
-    //             .domain([0,1])
-    //             .range(d3.range(1, data.length + 1));
-    //     return function(t) {
-    //         return line(data.slice(0, interpolate(t)));
-    //     };
-    // }
-
 
     // d3.select('svg')
     //   .append('text')
@@ -135,20 +106,19 @@ angular.module('tp.map',[])
     // Used in dragMove, below.
     function updateUserLoc(userLoc){
       scope.userLoc = userLoc;
+      if (data[1]){
+        if (Math.abs(userLoc.x - data[1][0]) < 30 && Math.abs(userLoc.y - data[1][1]) < 30){
 
-      // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-      //         [300,400],
-      //         [199,233],
-      //         [266,99],
-      //         [211,333],
-      //         [222,555],
-      //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
-
-
-
-      if (Math.abs(userLoc.x - data[1][0]) < 30 && Math.abs(userLoc.y - data[1][1]) < 30){
-        data.splice(1,1);
+          scope.svg.append('circle')
+            .attr('r', function(){return 0.5 * scope.scale})
+            .attr('cx', function(){return data[1][0]})
+            .attr('cy', function(){return data[1][1]})
+            .attr('class', 'whatever')
+            .attr('fill','yellow')  
+          data.splice(1,1);
+        }
       }
+
       data[0] = [Number($('.user').attr('cx')), Number($('.user').attr('cy'))]
       drawPath(data);
     };
@@ -162,29 +132,8 @@ angular.module('tp.map',[])
       d3.select(this).attr('cx',x).attr('cy', y);
 
       updateUserLoc({x:x, y:y});
-
-      // var data = [{"x": x + 20, "y": y + 20}, {"x":20, "y":40}]
-
-      // var line = d3.svg.line()
-      //     .x(function(d) { return d[0]; })
-      //     .y(function(d) { return d[1]; });
-
-      // d3.select("svg").append("path")
-      //   .attr("class", "line")
-      //   .attr("d", line(data));
-
-      // lineFunction(data);
     };
 
-
-    // data = [];
-    // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-    //         [300,400],
-    //         [199,233],
-    //         [266,99],
-    //         [211,333],
-    //         [222,555],
-    //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
 
     // Adds user circle to the map. This is blue in the demo.
     function addUserToMap(event, scope, element){
@@ -212,27 +161,6 @@ angular.module('tp.map',[])
         .call(drag);
 
       data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))]].concat(Item.coordinatesStorage);
-      console.log(data)
-      //         // [500,300],
-      //         // [490,290],
-      //         // [480,280],
-      //         // [470,270],
-      //         // [460,260],
-      //         // [450,250],
-      //         // [440,240],
-      //         // [430,230],
-      //         // [420,220],
-      //         // [410,210],
-      //         // [400,200],
-      //         // [280,180],
-      //         // [260,160],
-      //         // [240,140],
-      //         // [220,120],
-      //         // [299,133],
-      //         // [266,99],
-      //         // [211,333],
-      //         // [222,555],
-      //         [Number($('.item').attr('cx')), Number($('.item').attr('cy'))]];
 
 
 
