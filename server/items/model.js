@@ -8,7 +8,7 @@ Schema for items
  - [Coordinates]
 */
 var ItemsSchema = new mongoose.Schema({
-  item_id: mongoose.Schema.ObjectId,
+  //item_id: mongoose.Schema.ObjectId,
   name: {
     type      : String,
     required  : true
@@ -18,7 +18,11 @@ var ItemsSchema = new mongoose.Schema({
     required  : true
   },
   retailer_id: String,
-  coordinates: [CoordinatesSchema]
+  coordinates: {
+    x: Number,
+    y: Number
+  }
+    //[CoordinatesSchema]
 });
 
 module.exports = mongoose.model('items',ItemsSchema);
