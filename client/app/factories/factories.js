@@ -118,18 +118,11 @@ angular.module('tp.factories',[])
 	// Draws items on svg specified as one of the inputs.
   item.drawItems = function(items, scale, svg, clear){
 
-<<<<<<< HEAD
-    var coordinatesArray = [scale * items[0].coordinates[0].x, scale * items[0].coordinates[0].y]
-    item.coordinatesStorage.push(coordinatesArray)
-    console.log(item.coordinatesStorage)
-  	item.storage.push(items)
-  	console.log('itemstorage', item.storage);
-=======
+
     var coordinatesArray = [scale * items[0].coordinates[0].x, scale * items[0].coordinates[0].y];
     item.coordinatesStorage.push(coordinatesArray);
     item.storage.push(items);
     // console.log(item.coordinatesStorage)
->>>>>>> 36dcc102c72b9fd5b55122261dee8b90f6445a18
 
 
 
