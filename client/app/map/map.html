@@ -3,13 +3,12 @@
     <form class="form-inline" role="form">
       <div class="form-group">
         <input type="text" class="form-control" ng-model="selectedItem" ng-options="item.name for item in items" placeholder="Enter Item" ng-change='drawItems([selectedItem], scale, svg, false)'  bs-typeahead>
+        <div ng-repeat="item in itemList" class="items"> 
+        	<h4 id="itemList">{{item[0].name}}<span></span></h4>
       </div>
     </form>
    <div ui-view></div>
-   <div id="items" id='items-attr'>
-   	<ul>
-   		<li ng-repeat="item in itemList">{{item[0].name}}  <span ng-click="remove()" class="remove-item()">X</span></li>
-   	</ul>
-   </div>
  </div>
 </div>
+
+<!-- <button id="delete" ng-click="remove()">Remove</button> -->

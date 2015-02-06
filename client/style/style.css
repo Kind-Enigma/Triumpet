@@ -102,6 +102,20 @@ body {
   overflow-y: scroll; 
 }
 
+#itemList {
+  display: inline-block;
+  background-color: #1984c3;
+  color: #fff;
+  font-size: 1em;
+  font-family: Courier, sans-serif;
+  padding: 1em 5em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 0.5em;
+  border-bottom: 0.25em solid #0f5177;
+  box-shadow: 0 2px 3px #ccc;
+}
+
 #floor-plan-coor, #shelves-coor, #items-attr {
   width: 8vw;
 }
