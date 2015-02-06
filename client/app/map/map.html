@@ -6,10 +6,10 @@
       </div>
     </form>
    <div ui-view></div>
- </div>
-   <div id="items">
+   <div id="items" id='items-attr'>
    	<ul>
-   		<li ng-repeat="item in itemList">{{item[0].name}}</li>
+   		<li ng-repeat="item in itemList">{{item[0].name}}  <span ng-click="remove()" class="remove-item()">X</span></li>
    	</ul>
    </div>
+ </div>
 </div>
