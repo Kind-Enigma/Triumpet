@@ -1,4 +1,31 @@
+var request = require('request');
 
+var Grid = require('./grid');
+
+
+var retailer;
+
+request('http://localhost:8080/api/retailers/test', function(error, response, body){
+  console.log(JSON.parse(body).shelves);
+  retailer = JSON.parse(body);
+
+  var gridSize = 5;
+  var x1 = Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
+  var y1 = Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
+  var x2 = Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
+  var y2 = Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
+
+  var grid = new Grid(x2+gridSize, y2+gridSize, gridSize);
+
+  grid.createArea(x1, y1, x2, y2);
+
+  retailer.shelves.map(function(shelf){
+    grid.placeItem(shelf.x, shelf.y, shelf.width, shelf.height);
+  });
+
+  console.log(grid.toString());
+
+});
 
 
 

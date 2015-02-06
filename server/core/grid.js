@@ -60,3 +60,17 @@ Grid.prototype.placeItem = function(x, y, width, height, value){
   }
 
 };
+
+module.exports = Grid;
+
+
+Grid.prototype.toString = function() {
+  var result = "\n";
+  for (var i = 0; i < this.grid.length; i++) {
+    for (var j = 0; j < this.grid[i].length; j++) {
+      result += this.grid[j][i] + " ";
+    }
+    result += "\n";
+  }
+  return result;
+};
