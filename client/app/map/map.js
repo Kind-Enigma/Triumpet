@@ -69,23 +69,51 @@ angular.module('tp.map',[])
                       .attr("d", lineFunction(data))
                       .attr("stroke", "blue")
                       .attr("stroke-width", 5)
-                      .attr("fill", "none");
+                      .attr("fill", "none")
+                      .transition()
+                      // .duration(1000)
+                      // .attrTween('d', pathTween);
+
+      function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, data.length + 1));
+        return function(t) {
+            return lineFunction(data.slice(0, interpolate(t)));
+        };
+      }
     }
 
+    // var path = svg.append('path')
+    //     .attr('class', 'line')
+    //     .attr('d', line(data[0]))
+    //     .transition()
+    //     .duration(1000)
+    //     .attrTween('d', pathTween);
 
-    d3.select('svg')
-      .append('text')
-      .attr('fill', 'white')
-      .attr('y', 3 * scope.scale + 'px')
-      .attr('x', 42 * scope.scale + 'px')
-      .style('cursor', 'hand')
-      .text('Calculate Route')
-      .on('click', function() {
-          d3.select('svg > #route')
-          // .transition()
-          // .duration(5000)
-          .attrTween('d', drawPath(data))
-    });
+    // function pathTween() {
+    //     var interpolate = d3.scale.quantile()
+    //             .domain([0,1])
+    //             .range(d3.range(1, data.length + 1));
+    //     return function(t) {
+    //         return line(data.slice(0, interpolate(t)));
+    //     };
+    // }
+
+
+    // d3.select('svg')
+    //   .append('text')
+    //   .attr('fill', 'white')
+    //   .attr('y', 3 * scope.scale + 'px')
+    //   .attr('x', 42 * scope.scale + 'px')
+    //   .style('cursor', 'hand')
+    //   .text('Calculate Route')
+    //   .on('click', function() {
+    //       d3.select('svg > #route')
+    //       // .transition()
+    //       // .duration(5000)
+    //       .attrTween('d', drawPath(data))
+    // });
 
 
 
@@ -139,7 +167,7 @@ angular.module('tp.map',[])
     };
 
 
-    data = [];
+    // data = [];
     // var data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
     //         [300,400],
     //         [199,233],
@@ -174,8 +202,22 @@ angular.module('tp.map',[])
         .call(drag);
 
       data = [[Number($('.user').attr('cx')), Number($('.user').attr('cy'))],
-              [300,400],
-              [199,233],
+              [500,300],
+              [490,290],
+              [480,280],
+              [470,270],
+              [460,260],
+              [450,250],
+              [440,240],
+              [430,230],
+              [420,220],
+              [410,210],
+              [400,200],
+              [280,180],
+              [260,160],
+              [240,140],
+              [220,120],
+              [299,133],
               [266,99],
               [211,333],
               [222,555],
