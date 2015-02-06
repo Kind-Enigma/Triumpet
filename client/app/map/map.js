@@ -9,7 +9,7 @@ angular.module('tp.map',[])
   $scope.items;
   $scope.selectedItem = '';
   $scope.floorPlan;
-  $scope.itemList = Item.storage
+  $scope.itemList = Item.storage;
   // $scope.itemLocData = Item.coordinatesStorage
 
   //Initializes the map by fetching retailer information.
