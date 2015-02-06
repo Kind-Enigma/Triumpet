@@ -9,7 +9,7 @@ angular.module('tp.map',[])
   $scope.items;
   $scope.selectedItem = '';
   $scope.floorPlan;
-  $scope.itemList = Item.storage
+  $scope.itemList = Item.storage;
   // $scope.itemLocData = Item.coordinatesStorage
 
   //Initializes the map by fetching retailer information.
@@ -64,9 +64,9 @@ angular.module('tp.map',[])
                       .attr("stroke", "blue")
                       .attr("stroke-width", 5)
                       .attr("fill", "none")
-                      .transition()
+                      // .transition()
                       // .duration(2000)
-                      .attrTween('d', pathTween);
+                      // .attrTween('d', pathTween);
 
       function pathTween() {
         var interpolate = d3.scale.quantile()
@@ -79,13 +79,17 @@ angular.module('tp.map',[])
     }
 
 
-    // d3.select('svg')
-    //   .append('text')
-    //   .attr('fill', 'white')
-    //   .attr('y', 3 * scope.scale + 'px')
-    //   .attr('x', 42 * scope.scale + 'px')
-    //   .style('cursor', 'hand')
-    //   .text('Calculate Route')
+// for(var i = 0; i < itemList; i++){
+//   var itemText = itemList[i].name;
+//     d3.select('svg')
+//       .append('text')
+//       .attr('fill', 'white')
+//       .attr('y', 3 * scope.scale + 'px')
+//       .attr('x', 42 * scope.scale + 'px')
+//       .style('cursor', 'hand')
+//       .text(itemText);
+// }
+
     //   .on('click', function() {
     //       d3.select('svg > #route')
     //       // .transition()

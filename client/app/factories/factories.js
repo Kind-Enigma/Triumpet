@@ -118,6 +118,7 @@ angular.module('tp.factories',[])
 	// Draws items on svg specified as one of the inputs.
   item.drawItems = function(items, scale, svg, clear){
 
+
     var coordinatesArray = [scale * items[0].coordinates[0].x, scale * items[0].coordinates[0].y];
     item.coordinatesStorage.push(coordinatesArray);
     item.storage.push(items);
@@ -144,8 +145,21 @@ angular.module('tp.factories',[])
        .attr('cy', function(d){return d.y*scale})
        .attr('class', 'selectedItem')
        .attr('fill','red')
-
+       var h = 10;
+	  // for(var i = 0; i < item.storage.length; i++){
+	  // 	h+=5;
+	  // 	console.log(item.storage[i]);
+	  //   var itemText = item.storage[i][0].name;
+	  //     d3.select('svg')
+	  //       .append('text')
+	  //       .attr('fill', 'white')
+	  //       .attr('cx', 3 * scale)
+	  //       .attr('cy', 42 * scale + h)
+	  //       .style('cursor', 'hand')
+	  //       .text(itemText);
+	  // }
   };
+
 	return item;
 })
 
