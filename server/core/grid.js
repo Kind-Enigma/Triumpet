@@ -61,6 +61,37 @@ Grid.prototype.placeItem = function(x, y, width, height, value){
 
 };
 
+
+// converts pixel coords to grid positions
+Grid.prototype.pixelsToGrid = function(items) {
+  var gs = this.gridSize;
+  return items.map(function(item){
+    return [item[0] / gs, item[1] / gs];
+  });
+};
+
+// coverts grid positions to pixel (mid point) positions
+Grid.prototype.gridToPixels = function(items) {
+  var gs = this.gridSize;
+  return items.map(function(item){
+    var mid = gs >>> 1;
+    return [item[0]*gs + mid, item[1]*gs + mid];
+  });
+};
+
+
+Grid.prototype.size = function(direction) {
+  direction = direction || 'x';
+  //direction = direction.toLower();
+
+  if (direction === 'x') {
+    return this.grid[0].length;
+  } else {
+    return this.grid.length;
+  }
+
+};
+
 module.exports = Grid;
 
 
@@ -74,3 +105,8 @@ Grid.prototype.toString = function() {
   }
   return result;
 };
+
+Grid.prototype.setPosition = function(x, y, value) {
+  this.grid[x / this.gridSize][y / this.gridSize] = value;
+};
+
