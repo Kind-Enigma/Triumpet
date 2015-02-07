@@ -3,15 +3,36 @@ var pf = require('pathfinding');
 var Grid = require('./grid');
 
 
+
+module.exports.createPath = function(req, res) {
+
+  var retailer = req.params.retailer;
+  var items = JSON.parse(req.body.items);
+
+  request('http://localhost:8080/api/retailers/' + retailer, function(error, response, body) {
+    result = JSON.parse(body);
+    console.log(result);
+    items = pixelsToGrid(items);
+
+    var path = new Path(result, items);
+
+    res.json(path.getShortestPath());
+  });
+};
+
+function c(value) {
+  return Math.floor(value);
+}
+
 var Path = function(retailerObject, items, userLocation) {
-  var gridSize = 5;
+  var gridSize = 1;
   var retailer = retailerObject;
 
   // get x,y - x2, y2 from coords
-  var x1 = Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
-  var y1 = Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
-  var x2 = Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
-  var y2 = Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x }));
+  var x1 = c(Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x })));
+  var y1 = c(Math.min.apply(this, retailer.floorPlan.map(function(item){ return item.x })));
+  var x2 = c(Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x })));
+  var y2 = c(Math.max.apply(this, retailer.floorPlan.map(function(item){ return item.x })));
 
   // create GRID
   this.matrix = new Grid(x2+gridSize, y2+gridSize, gridSize);
@@ -21,7 +42,7 @@ var Path = function(retailerObject, items, userLocation) {
   // add shelves as non-walking area
   var that = this;
   result.shelves.map(function(shelf){
-    that.matrix.placeItem(shelf.x, shelf.y, shelf.width, shelf.height);
+    that.matrix.placeItem(c(shelf.x), c(shelf.y), c(shelf.width), c(shelf.height));
   });
 
 
@@ -112,27 +133,27 @@ Path.prototype.getShortestPath = function() {
 };
 
 
-request('http://localhost:8080/api/retailers/test', function(error, response, body) {
-  result = JSON.parse(body);
-  var items = [[30,30], [285,85], [85, 195], [45, 45], [300, 205]];
-  items = pixelsToGrid(items);
-
-  var path = new Path(result, items);
-
-  //console.log(path.paths[0][3]);
-  //console.log(path.distances[0][3]);
-  //console.log(path.paths[3][2]);
-  //console.log(path.distances[3][2]);
-
-  //path.matrix.setPosition(6,6,' ');
-  //console.log(path.matrix.toString());
-
-  //console.log(path.distances);
-
-  //console.log(path.shortestPaths);
-
-  console.log(path.getShortestPath());
-});
+//request('http://localhost:8080/api/retailers/test', function(error, response, body) {
+//  result = JSON.parse(body);
+//  var items = [[30,30], [285,85], [85, 195], [45, 45], [300, 205]];
+//  items = pixelsToGrid(items);
+//
+//  var path = new Path(result, items);
+//
+//  //console.log(path.paths[0][3]);
+//  //console.log(path.distances[0][3]);
+//  //console.log(path.paths[3][2]);
+//  //console.log(path.distances[3][2]);
+//
+//  //path.matrix.setPosition(6,6,' ');
+//  //console.log(path.matrix.toString());
+//
+//  //console.log(path.distances);
+//
+//  //console.log(path.shortestPaths);
+//
+//  console.log(path.getShortestPath());
+//});
 
 
 

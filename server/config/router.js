@@ -7,6 +7,7 @@ var bodyParser     = require('body-parser');
 var retailers      = require('../retailers/controller.js');
 var items          = require('../items/controller.js');
 var users          = require('../users/controller.js');
+var path = require('../core/path.js');
 
 module.exports = function(app, express) {
   //Mounting middleware to app
@@ -45,5 +46,8 @@ module.exports = function(app, express) {
   app.post('/api/users/signin',users.signin);
   app.put('/api/users/:username',users.update);
   app.delete('/api/users/:username',users.delete);
+
+  // Path API
+  app.post('/api/path/:retailer', path.createPath)
 
 };
